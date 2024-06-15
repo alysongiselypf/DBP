@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>DBP</title>
+    <!-- Enlace al archivo de estilos CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css"> 
+    <script>
+      // Evento que se ejecuta cuando el DOM ha sido completamente cargado
+      document.addEventListener('DOMContentLoaded', () => {
+        // Evento que se ejecuta cuando el formulario 'new-task' es enviado
+        document.querySelector('#new-task').onsubmit = (event) => {
+          event.preventDefault(); // Previene el comportamiento predeterminado del formulario
+
+          // Crea un checkbox para cada nueva tarea
+          const cb = document.createElement('input');
+          cb.setAttribute('type', 'checkbox');
+
+          // Crea un elemento de lista para la nueva tarea
+          const li = document.createElement('li');
+          li.appendChild(cb); // Añade el checkbox a la lista
+          // Añade el texto de la tarea a la lista
+          li.appendChild(
+            document.createTextNode(document.querySelector('#task').value)
+          );
+
+          // Crea un botón para eliminar la tarea
+          const buttonEliminar = document.createElement('button');
+          buttonEliminar.textContent = 'X'; // Texto del botón
+
+          // Evento para eliminar la tarea cuando se hace clic en el botón
+          buttonEliminar.addEventListener('click', () => {
+            li.parentNode.removeChild(li);
+          });
+
+          li.appendChild(buttonEliminar); // Añade el botón de eliminar a la lista
+          // Evento para marcar la tarea como completada
+          cb.addEventListener('change', function () {
+            if (this.checked) {
+              li.classList.add('completed'); // Añade la clase 'completed' si el checkbox está marcado
+            } else {
+              li.classList.remove('completed'); // Remueve la clase 'completed' si el checkbox no está marcado
+            }
+          });
+          // Añade la nueva tarea a la lista de tareas
+          document.querySelector('#tasks').appendChild(li);
+
+          // Limpia el campo de entrada de tarea
+          document.querySelector('#task').value = '';
+
+          return false; // Previene el comportamiento predeterminado del formulario
+        };
+
+        // Crea un botón para marcar todas las tareas como completadas
+        const buttonMarcarTodos = document.createElement('button');
+        buttonMarcarTodos.textContent = 'Marcar Todos'; // Texto del botón
+
+        // Evento para marcar todas las tareas como completadas cuando se hace clic en el botón
+        buttonMarcarTodos.addEventListener('click', () => {
+          const checkboxes = document.querySelectorAll('#tasks input[type="checkbox"]');
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = true; 
+            checkbox.parentNode.classList.add('completed'); // Añade la clase 'completed' a todas las tareas
+          });
+        });
+
+        // Añade el botón de 'Marcar Todos' antes de la lista de tareas
+        document.querySelector('#tasks').before(buttonMarcarTodos);
+      });
+    </script>
+</head>
+<body>
+  <div class="container"> 
+      <p>Computer Science</p>
+      <h1>Tasks</h1>
+      <!-- Formulario para añadir una nueva tarea -->
+      <form id="new-task">
+          <input id="task" autocomplete="off" autofocus placeholder="New Task" type="text" />
+          <input type="submit" value="Enviar" />
+      </form>
+      <!-- Lista ordenada donde se añadirán las nuevas tareas -->
+      <ol id="tasks"></ol>
+  </div>
+</body>
+</html>
+
