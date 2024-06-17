@@ -12,7 +12,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Imagen -->
-                <Image Source="https://cdn-images.livecareer.es/pages/foto_cv_lc_es_4.jpg" WidthRequest="150" HeightRequest="150" Aspect="AspectFill" Margin="20"/>
+                <Image Source="Resoruces/Images/figura.png" WidthRequest="150" HeightRequest="150" Aspect="AspectFill" Margin="20"/>
                 <StackLayout Grid.Column="1" HorizontalOptions="Start" VerticalOptions="Center">
                     <Label x:Name="nombreLabel" TextColor="White" FontSize="Large"/>
                     <Label x:Name="puestoLabel" TextColor="White" FontSize="Medium"/>
